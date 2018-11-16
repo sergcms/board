@@ -6,7 +6,7 @@ spl_autoload_register(function($class) {
     require __DIR__ . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
 });
 
-$board = new StandartBoard();
+$board = new Board();
 $peshka = new Figure();
 
-$board->setPosition($peshka, 'a6');
+$board->setPosition($peshka, 'a9');
