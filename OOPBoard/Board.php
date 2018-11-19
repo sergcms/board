@@ -4,10 +4,7 @@ namespace OOPBoard;
 
 class Board implements BoardInterface
 {
-    private $board = [];
-    
-    private $currentPosition;
-
+    private $board = [];    
     const X = ['A','B','C','D','E','F','G','H'];
     const Y = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -85,19 +82,34 @@ class Board implements BoardInterface
         return false;
     }
 
-    public function move(Figure $figure, $toPosition)
+    public function moveFigure(Figure $figure, $toPosition): void
     {
         if (!$this->checkPosition($toPosition)) {
             return;
         }
 
-        $figure->moveLogic($toPosition);
+        $isPossible = $figure->checkMove($toPosition);
+        $dataFigure = $figure->getFigure();
 
         $x = strtoupper($toPosition[0]);
         $y = $toPosition[1];
+
+        if ($isPossible) {
+            foreach ($isPossible as $position) {
+                if ($position === strtoupper($toPosition)) {
+                    if ($this->board[$x][$y] === 0) {
+                        $this->board[$x][$y] = $dataFigure['id'];
+                        $this->board[$figure->currentPosition[0]][$figure->currentPosition[1]] = 0;
+    
+                        $figure->isMove = true;
+                        $figure->currentPosition = strtoupper($toPosition);
+                    } else {
+                        echo 'Position busy!' . PHP_EOL;
+                    }
+                }
+            }
+        }  
     }
-
-
 
     public function showBoard(): void 
     {

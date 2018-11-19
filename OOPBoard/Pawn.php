@@ -9,7 +9,7 @@ class Pawn extends Figure implements PawnInterface
     public $isMove = false; // Ходила ли пешка или это первый раз.  
     public $currentPosition;
 
-    public function firstRules ()
+    public function firstRules(): array
     {
         $dataFigure = self::getFigure();
 
@@ -20,40 +20,30 @@ class Pawn extends Figure implements PawnInterface
         } 
     }
     
-    public function moveLogic($toPosition) 
+    public function checkMove($toPosition): ?array 
     {
         $dataFigure = self::getFigure();
+        $col = $this->currentPosition[0];
+        $row = $this->currentPosition[1];
 
-        if (!$this->isMove) {
-            if ($toPosition[0] === $currentPosition[0]) {
+        if (strtoupper($toPosition[0]) === $col) {
+            if (!$this->isMove) {
                 if (!$dataFigure['isBlack']) {
-                    return [$currentPosition[0] . $currentPosition[1] + 1, $currentPosition[0] . $currentPosition[1] + 2]; 
+                    return [$col . ($row + 1), $col . ($row + 2)]; 
                 } else {
-                    return [$currentPosition[0] . $currentPosition[1] - 1, $currentPosition[0] . $currentPosition[1] - 2];
+                    return [$col . ($row - 1), $col . ($row - 2)]; 
                 }
             } else {
-                echo 'Can not move!';
-
-                return;
+                if (!$dataFigure['isBlack']) {
+                    return [$col . ($row + 1)]; 
+                } else {
+                    return [$col . ($row - 1)];
+                }
             }
         } else {
-            if ($toPosition[0] === $currentPosition[0]) {
-                if (!$dataFigure['isBlack']) {
-                    return [$currentPosition[0] . $currentPosition[1] + 1]; 
-                } else {
-                    return [$currentPosition[0] . $currentPosition[1] - 1];
-                }
-            } else {
-                echo 'Can not move!';
+            echo 'Can not move!' . PHP_EOL;
 
-                return;
-            }
+            return null;
         }
-
-    }
-
-    public function checkMove()
-	{
-
     }
 }

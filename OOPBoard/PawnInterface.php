@@ -4,6 +4,6 @@ namespace OOPBoard;
 
 interface PawnInterface 
 {
-    public function moveLogic();
-    // public function checkMove();
+    public function firstRules(): array;
+    public function checkMove($toPosition): ?array ;
 }
