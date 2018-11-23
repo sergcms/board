@@ -23,6 +23,7 @@ class Pawn extends Figure implements PawnInterface
     public function checkMove($toPosition): ?array 
     {
         $dataFigure = self::getFigure();
+        
         $col = $this->currentPosition[0];
         $row = $this->currentPosition[1];
 

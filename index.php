@@ -20,6 +20,6 @@ $pawn = new Pawn();
 $pawn->setFigure('pawn', false);
 
 $board->setPosition($pawn, 'e2');
-$board->moveFigure($pawn, 'E3');
+$board->moveFigure($pawn, 'E4');
 
 $board->showBoard();
